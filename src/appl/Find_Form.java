@@ -233,13 +233,13 @@ public class Find_Form extends JDialog{
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							System.exit(0);
+							frame.dispose();
 						} catch (NullPointerException e)
 						{
-							System.exit(0);
+							frame.dispose();
 						}
 
-		                System.exit(0);
+						frame.dispose();
 		            }
 
 					@Override

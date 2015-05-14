@@ -60,7 +60,7 @@ public class Form extends JPanel{
 	public Form(){
         try{
             //System.out.println("I'm in Form!");
-            JFrame frame = new JFrame("ARM DOCTOR от 22 апреля 2015г.");
+            JFrame frame = new JFrame("ARM DOCTOR от 12 мая 2015г.");
             //exit
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    

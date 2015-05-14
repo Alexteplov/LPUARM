@@ -393,13 +393,13 @@ public class Form_People extends JDialog{
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-						System.exit(0);
+						frame_a.dispose();
 					} catch (NullPointerException e)
 					{
-						System.exit(0);
+						frame_a.dispose();
 					}
 
-	                System.exit(0);
+					frame_a.dispose();
 	            }
 
 				@Override
