@@ -307,7 +307,8 @@ public class statTalon extends JDialog{
     					{
     					
     					}
-
+   							//System.out.println("End Stattalon");
+   		            		Form.UpdTable();
    		                frame.dispose();
    		                }
   /*
@@ -398,14 +399,18 @@ public class statTalon extends JDialog{
 	            // ...
 	            public void windowClosing(WindowEvent event) {
 	                // [“”“ “¬Œ» ƒ≈…—“¬»ﬂ œŒ «¿ –€“»ﬁ]
-					try {
+	            	try {
+						//System.out.println("End Stattalon");
+	            		Form.UpdTable();
 						adapter_id.close();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						Form.UpdTable();
 						frame.dispose();
 					} catch (NullPointerException e)
 					{
+						Form.UpdTable();
 						frame.dispose();
 					}
 

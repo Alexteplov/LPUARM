@@ -2,6 +2,7 @@ package appl;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -57,10 +58,13 @@ import time.DatePickerCodeExample;
 
 public class Form extends JPanel{
 	public static DatePickerCodeExample calendar_t = new DatePickerCodeExample();
+	//public static Object colren[]=null;
+	public static JDBCAdapter adapter=new JDBCAdapter(index.connectDN,index.connectDP,index.connectLogin,index.connectPassword);
+	public static JTable Table=new JTable(adapter);
 	public Form(){
         try{
             //System.out.println("I'm in Form!");
-            JFrame frame = new JFrame("ARM DOCTOR от 12 мая 2015г.");
+            JFrame frame = new JFrame("ARM DOCTOR от 27 мая 2015г.");
             //exit
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    
@@ -107,41 +111,20 @@ public class Form extends JPanel{
 
 //            final JDBCAdapter adapter=new JDBCAdapter("org.sqlite.JDBC","jdbc:sqlite:raspisanie.db");
 //            final JTable Table=new JTable(adapter);
-        	final JDBCAdapter adapter=new JDBCAdapter(index.connectDN,index.connectDP,index.connectLogin,index.connectPassword);
-        	final JTable Table=new JTable(adapter);
 
-            Table.setDefaultRenderer(Object.class,new ColorRenderer());
+
             
-            final JDBCAdapter adapter_cp=new JDBCAdapter(index.connectDN,index.connectDP,index.connectLogin,index.connectPassword);
-            final JTable CPTable=new JTable(adapter_cp);
+            
+            JDBCAdapter adapter_cp=new JDBCAdapter(index.connectDN,index.connectDP,index.connectLogin,index.connectPassword);
+            JTable CPTable=new JTable(adapter_cp);
             
 //				adapter.executeQuery("select data_reg,fio,num_kart,data_in_doc,doc_name from TALON");
 //            adapter.executeQuery("select id, id_people, start_time from time_work where id = '"+index.id_doc+"' and and start_time like '"+(new SimpleDateFormat("dd.MM.yyyy").format(calendar_t.ddd))+"%' ORDER BY start_time ASC;");
 //            JLabel rec_in_table = new JLabel("Количество пациентов в базе="+Table.getValueAt(0, 0).toString(), SwingConstants.RIGHT);
 //            rec_in_table.setBounds(750, 520, 260, 20);
 
+            UpdTable();
 
-
-            SwingUtilities.invokeLater( new Runnable() {
-                public void run() {
-                    //new Sql();
-
-                //	System.out.println("select id, id_people, start_time from time_work where id_doc = '"+index.id_doc+"' and start_time like '"+(new SimpleDateFormat("dd.MM.yyyy").format(calendar_t.ddd))+"%' and print='TRUE' ORDER BY start_time ASC;");
-                	adapter.executeQuery("select time_work.\"id_people\", time_work.\"id\", time_work.\"start_time\" from public.time_work where time_work.\"id_doc\" = '"+index.id_doc+"' and time_work.\"start_time\"::text like '"+(new SimpleDateFormat("yyyy-MM-dd").format(calendar_t.ddd))+"%' and time_work.\"print\"='TRUE'  ORDER BY time_work.\"start_time\" ASC;");
-//System.out.println("select time_work.\"id_people\", time_work.\"id\", time_work.\"start_time\" from public.time_work where time_work.\"id_doc\" = '"+index.id_doc+"' and time_work.\"start_time\"::text like '"+(new SimpleDateFormat("dd.MM.yyyy").format(calendar_t.ddd))+"%' and time_work.\"print\"='TRUE'  ORDER BY time_work.\"start_time\" ASC;");
-                    Table.setDefaultEditor(String.class, new TEditor(adapter));
-                    
-                               
-
-                    for (int i=0; i< Table.getRowCount(); i++ ){
-                        adapter_cp.executeQuery("SELECT people.\"first_name\",people.\"last_name\",people.\"surname\" from public.people where people.\"id\" ='"+Table.getValueAt(i, 0)+"';");
-                        //System.out.println("SELECT people.\"first_name\",people.\"last_name\",people.\"surname\" from public.people where people.\"id\" ='"+Table.getValueAt(i, 0)+"';");
-						adapter.setValueAt(CPTable.getValueAt(0, 1).toString()+ " " + CPTable.getValueAt(0, 0).toString() + " " +CPTable.getValueAt(0, 2).toString(), i, 1);
-                    }
-                    Table.removeColumn(Table.getColumnModel().getColumn(0));
-
-                }
-            });
 
 
             JScrollPane scrollPane = new JScrollPane(Table);
@@ -168,32 +151,7 @@ public class Form extends JPanel{
    	     // update
    	        updateButton.addActionListener(new java.awt.event.ActionListener(){
    				public void actionPerformed(java.awt.event.ActionEvent evt) {
-   					try{
-   //			           SwingUtilities.invokeLater( new Runnable() {
-   //		                public void run() {
-   		                    //new Sql();
-
-   		                	//System.out.println("select time_work.\"id_people\", time_work.\"id\", time_work.\"start_time\" from public.time_work where time_work.\"id_doc\" = '"+index.id_doc+"' and time_work.\"start_time\"::text like '"+(new SimpleDateFormat("yyyy-MM-dd").format(calendar_t.ddd))+"%' and time_work.\"print\"='TRUE'  ORDER BY time_work.\"start_time\" ASC;");
-   						
-   						//adapter=new JDBCAdapter(index.connectDN,index.connectDP,index.connectLogin,index.connectPassword);
-   						adapter.executeQuery("select time_work.\"id_people\", time_work.\"id\", time_work.\"start_time\" from public.time_work where time_work.\"id_doc\" = '"+index.id_doc+"' and time_work.\"start_time\"::text like '"+(new SimpleDateFormat("yyyy-MM-dd").format(calendar_t.ddd))+"%' and time_work.\"print\"='TRUE'  ORDER BY time_work.\"start_time\" ASC;");
-   		                    //Table.setDefaultEditor(String.class, new TEditor(adapter));
-
-   		                    for (int i=0; i< Table.getRowCount(); i++ ){
-   		                        adapter_cp.executeQuery("SELECT people.\"first_name\",people.\"last_name\",people.\"surname\" from public.people where people.\"id\" ='"+Table.getValueAt(i, 0)+"';");
-   		                     //   System.out.println(CPTable.getValueAt(0, 1).toString()+ " " + CPTable.getValueAt(0, 0).toString() + " " +CPTable.getValueAt(0, 2).toString());
-   		                     adapter.setValueAt(CPTable.getValueAt(0, 1).toString()+ " " + CPTable.getValueAt(0, 0).toString() + " " +CPTable.getValueAt(0, 2).toString(), i, 1);
-   		                    }
-   		                 Table.removeColumn(Table.getColumnModel().getColumn(0));
-
- //  		                }
- //  		            });
-   					
-   					}
-   					catch (Exception e1){
-   						e1.printStackTrace();
-   						System.out.println("Error ");
-   					}	
+   					UpdTable();
    				}
    			});
             //--------------------------------	        
@@ -311,7 +269,46 @@ public class Form extends JPanel{
             e.printStackTrace();
         }
     }
-  
+public static void UpdTable(){
+    SwingUtilities.invokeLater( new Runnable() {
+        public void run() {
+            JDBCAdapter adapter_cp=new JDBCAdapter(index.connectDN,index.connectDP,index.connectLogin,index.connectPassword);
+            JTable CPTable=new JTable(adapter_cp);
+        	adapter.executeQuery("select time_work.\"id_people\", time_work.\"id\" as \"ФИО\", time_work.\"start_time\" as \"Время приёма\", time_work.\"id_people\" as \"Посещение\" from public.time_work where time_work.\"id_doc\" = '"+index.id_doc+"' and time_work.\"start_time\"::text like '"+(new SimpleDateFormat("yyyy-MM-dd").format(calendar_t.ddd))+"%' and time_work.\"print\"='TRUE'  ORDER BY time_work.\"start_time\" ASC;");
+            for (int i=0; i< Table.getRowCount(); i++ ){
+                adapter_cp.executeQuery("SELECT people.\"first_name\",people.\"last_name\",people.\"surname\" from public.people where people.\"id\" ='"+Table.getValueAt(i, 0)+"';");
+				adapter.setValueAt(CPTable.getValueAt(0, 1).toString()+ " " + CPTable.getValueAt(0, 0).toString() + " " +CPTable.getValueAt(0, 2).toString(), i, 1);
+    			try{
+    				adapter_cp.executeQuery("select stattalon.\"id_people\" from public.stattalon where stattalon.\"id_people\"='"+Table.getValueAt(i, 0).toString().trim()+"' and stattalon.\"id_doctor\" = '"+index.id_doc+"' and stattalon.\"created_at\"::text  like '"+(new SimpleDateFormat("yyyy-MM-dd").format(Form.calendar_t.ddd))+"%';");
+    				if(!CPTable.getValueAt(0, 0).toString().equals("")) {
+    					adapter.setValueAt("Принят", i, 3);
+    			}else
+    			{
+    				adapter.setValueAt("", i, 3);
+    			}
+    					
+    			}catch (ArrayIndexOutOfBoundsException e){
+    				adapter.setValueAt("", i, 3);
+    			}
+        	
+
+            }
+            Table.removeColumn(Table.getColumnModel().getColumn(0));
+        	Table.setDefaultEditor(String.class, new TEditor(adapter));
+        	Table.setDefaultRenderer(Object.class,new ColorRenderer());
+	
+       	
+        	try {
+				adapter_cp.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+    });
+
+}
+	
 }
 
 

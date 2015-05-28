@@ -27,7 +27,8 @@ public class ColorRenderer extends DefaultTableCellRenderer{
    
  
     public ColorRenderer() {
-       // setOpaque(true); //MUST do this for background to show up.
+    	
+    	setOpaque(true); //MUST do this for background to show up.
     }
  
     public Component getTableCellRendererComponent(
@@ -36,17 +37,19 @@ public class ColorRenderer extends DefaultTableCellRenderer{
                             int row, int column) {
 
 		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+		//Form.UpdTable();
 // проверяем на то, что данные внесены т.е. появились в другой таблице
-		JDBCAdapter adapter=new JDBCAdapter(index.connectDN,index.connectDP,index.connectLogin,index.connectPassword);
-		JTable Table=new JTable(adapter);
-		adapter.executeQuery("select time_work.\"id_people\", time_work.\"id\", time_work.\"start_time\" from public.time_work where time_work.\"id_doc\" = '"+index.id_doc+"' and time_work.\"start_time\"::text like '"+(new SimpleDateFormat("yyyy-MM-dd").format(Form.calendar_t.ddd))+"%' and time_work.\"print\"='TRUE'  ORDER BY time_work.\"start_time\" ASC;");
+//		JDBCAdapter adapter=new JDBCAdapter(index.connectDN,index.connectDP,index.connectLogin,index.connectPassword);
+//		JTable Table=new JTable(adapter);
+//		adapter.executeQuery("select time_work.\"id_people\", time_work.\"id\", time_work.\"start_time\" from public.time_work where time_work.\"id_doc\" = '"+index.id_doc+"' and time_work.\"start_time\"::text like '"+(new SimpleDateFormat("yyyy-MM-dd").format(Form.calendar_t.ddd))+"%' and time_work.\"print\"='TRUE'  ORDER BY time_work.\"start_time\" ASC;");
 			//String[] PD =  Form.adapter.rows.get(row).toString().substring(1,Form.adapter.rows.get(row).toString().length()-1).split(",");
-			adapter.executeQuery("select stattalon.\"id_people\" from public.stattalon where stattalon.\"id_people\"='"+Table.getValueAt(row, 0).toString().trim()+"' and stattalon.\"id_doctor\" = '"+index.id_doc+"' and stattalon.\"created_at\"::text  like '"+(new SimpleDateFormat("yyyy-MM-dd").format(Form.calendar_t.ddd))+"%';");
+//			adapter.executeQuery("select stattalon.\"id_people\" from public.stattalon where stattalon.\"id_people\"='"+Table.getValueAt(row, 0).toString().trim()+"' and stattalon.\"id_doctor\" = '"+index.id_doc+"' and stattalon.\"created_at\"::text  like '"+(new SimpleDateFormat("yyyy-MM-dd").format(Form.calendar_t.ddd))+"%';");
 //			System.out.println("select stattalon.\"id_people\" from public.stattalon where stattalon.\"id_people\"='"+PD[0].trim()+"' and stattalon.\"id_doctor\" = '"+index.id_doc+"' and stattalon.\"created_at\" = '"+(new SimpleDateFormat("yyyy-MM-dd").format(Form.calendar_t.ddd))+"%';");
 			// если такой чел есть, то помечаем его зеленым
-			try{
+    	//System.out.println("row="+row+" "+"column="+column);	
+		try{
 				//System.out.println(adapter.rows.get(0).toString().substring(1,adapter.rows.get(0).toString().length()-1));
-				if(!adapter.rows.get(0).toString().substring(1,adapter.rows.get(0).toString().length()-1).equals("")) {
+				if(table.getValueAt(row, 2).equals("Принят")) {
 				setBackground(Color.GREEN);
 		        //table.repaint();
 				//System.out.println("GREEN " +adapter.rows.get(0).toString().substring(1,adapter.rows.get(0).toString().length()-1));
@@ -55,10 +58,7 @@ public class ColorRenderer extends DefaultTableCellRenderer{
 				setBackground(Color.WHITE);
 				//System.out.println("WHITE " +adapter.rows.get(0).toString().substring(1,adapter.rows.get(0).toString().length()-1));
 			}
-				adapter.close();	
-			}catch (ArrayIndexOutOfBoundsException e){
-				setBackground(Color.WHITE);
-				
+
 			}
 		//}
  catch (Exception e) {

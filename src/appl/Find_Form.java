@@ -173,12 +173,7 @@ public class Find_Form extends JDialog{
         	        			//adapter_tw.executeQueryIns("DELETE FROM time_work WHERE id='"+idRec+"';");
         	        			//adapter_tw.executeQuery("select id, room, reserv, start_time from time_work where id_doc="+ DTable.getValueAt(comboBox.getSelectedIndex(), 0).toString()+" and start_time like '"+(new SimpleDateFormat("dd.MM.yyyy").format(calendar_t.ddd))+"%' ORDER BY start_time ASC;");
         	            		//TWTable.removeColumn(TWTable.getColumnModel().getColumn(0));
-        	        			try {
-									adapteri.close();
-								} catch (SQLException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
+
         	        		}
         	        	}
        	        }

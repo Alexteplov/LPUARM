@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import javax.swing.AbstractCellEditor;
@@ -40,7 +41,8 @@ class TEditor extends AbstractCellEditor implements TableCellEditor, ActionListe
     	//System.out.println("Edit Cell");
 		
     	new statTalon(PData);
-	    fireEditingStopped();
+    	//Form.UpdTable();
+    	fireEditingStopped();
     }
     }
     
