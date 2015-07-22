@@ -290,11 +290,12 @@ public class statTalon extends JDialog{
    		                	
 //   		                	if(diagn_str.getText().equals("") && !comeBox2.getSelectedItem().equals("проф. цель"))
 //   		                	{
-   		                	adapter.executeQueryIns("INSERT INTO stattalon (id_people, id_doctor, mkb, yst, ostroe, dispanser, tr_otr, created_at) VALUES" +
+   		                	adapter.executeQueryIns("INSERT INTO stattalon (id_people, id_doctor, mkb, yst, ostroe, dispanser, tr_otr, created_at, coming, target) VALUES" +
 									"('"+PD[0].trim()+"','"+new String().valueOf(index.id_doc)+"','"+
 									diagn_str.getText().trim()+"','"+comeBox3.getSelectedItem().toString()+"','"+come44+"','"+
 									comeBox5.getSelectedItem().toString()+"','"+comeBox6.getSelectedItem().toString()+"','"+
-									(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(java.util.Calendar.getInstance().getTime())+"');");
+									(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(java.util.Calendar.getInstance().getTime())+
+									"','"+comeBox.getSelectedItem().toString()+"','"+comeBox2.getSelectedItem().toString()+"');");
    		                	
    		                	//Form.setRowColor(1);
    		                	try {
